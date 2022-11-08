@@ -1,0 +1,38 @@
+*{
+   box-sizing: border-box;
+}
+body{
+   background: rgb(15, 15, 15);
+}
+.grid-container {
+   display: grid;
+   grid-auto-flow: column;
+   grid-template-columns: repeat(8, 1fr);
+   grid-template-rows: 50px repeat(7, 1fr) 100px;
+   grid-gap: 0;
+   width: 10rem
+ }
+ .square {
+   outline: solid 1px red;
+   height: 50px;
+   width: 50px;
+ }
+ .topRow {
+   grid-column: 1 / 9;
+   outline: solid 1px purple;
+   
+ }
+ .bottomRow {
+   grid-column: 1  / 9;
+   grid-row: 9 ;
+   outline: solid 1px purple;
+   align-content: center;
+ }
+ .player {
+   padding-top: 5px;
+   margin: auto;
+   width: 10px;
+   height: 10px;
+
+   outline: solid 1px green;
+ }
