@@ -7,32 +7,50 @@ body{
 .grid-container {
    display: grid;
    grid-auto-flow: column;
-   grid-template-columns: repeat(8, 1fr);
-   grid-template-rows: 50px repeat(7, 1fr) 100px;
+   grid-template-columns: repeat(9, 1fr);
+   grid-template-rows: 50px repeat(7, 1fr) 50px ;
    grid-gap: 0;
    width: 10rem
  }
  .square {
    outline: solid 1px red;
-   height: 50px;
-   width: 50px;
+   height: 3rem;
+   width: 3rem;
  }
  .topRow {
-   grid-column: 1 / 9;
+   grid-column: 1 / 10;
    outline: solid 1px purple;
    
  }
  .bottomRow {
-   grid-column: 1  / 9;
+   display: grid;
+
+   grid-auto-flow: column;
+   grid-column: 1  / 10;
    grid-row: 9 ;
    outline: solid 1px purple;
    align-content: center;
  }
+ .player-container{
+  
+  height: 3rem;
+  outline: solid 1px yellow;
+ }
  .player {
-   padding-top: 5px;
-   margin: auto;
-   width: 10px;
-   height: 10px;
+   margin: .75rem auto ;
+
+   
+   width: 50%;
+   height: 50%;
 
    outline: solid 1px green;
+ }
+ .bomb {
+  margin: .75rem auto ;
+
+   
+  width: 50%;
+  height: 50%;
+
+  outline: solid 1px green;
  }
