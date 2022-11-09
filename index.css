@@ -1,56 +1,53 @@
-*{
+* {
    box-sizing: border-box;
 }
-body{
+body {
    background: rgb(15, 15, 15);
+   display: flex;
+   justify-content: center;
 }
 .grid-container {
+   background-image: url(images/startScreenBackground.png);
+   background-repeat: no-repeat;
+   background-size: 104%;
+   background-position: center center;
+   border-radius: 30px; 
    display: grid;
    grid-auto-flow: column;
    grid-template-columns: repeat(9, 1fr);
-   grid-template-rows: 50px repeat(7, 1fr) 50px ;
+   grid-template-rows:  repeat(8, 1fr) 3rem;
    grid-gap: 0;
-   width: 10rem
- }
- .square {
-   outline: solid 1px red;
-   height: 3rem;
-   width: 3rem;
- }
- .topRow {
-   grid-column: 1 / 10;
-   outline: solid 1px purple;
+   width: 72vw;
    
- }
- .bottomRow {
+}
+.square {
+  height: 3rem;
+}
+.bottomRow {
    display: grid;
 
    grid-auto-flow: column;
-   grid-column: 1  / 10;
-   grid-row: 9 ;
-   outline: solid 1px purple;
+   grid-column: 1 / 10;
+   grid-row: 9;
+
    align-content: center;
- }
- .player-container{
-  
-  height: 3rem;
-  outline: solid 1px yellow;
- }
- .player {
-   margin: .75rem auto ;
+}
+.player-container {
+   height: 3rem;
+}
+.player {
+   background-image: url(images/spaceship.png);
+   background-repeat: no-repeat;
+   background-size: 50%;
+   background-position: center center;
 
-   
-   width: 50%;
-   height: 50%;
+   height: 100%;
+}
+.bomb {
+   background-image: url(images/invader.png);
+   background-repeat: no-repeat;
+   background-size: 40%;
+   background-position: center center;
 
-   outline: solid 1px green;
- }
- .bomb {
-  margin: .75rem auto ;
-
-   
-  width: 50%;
-  height: 50%;
-
-  outline: solid 1px green;
- }
+   height: 100%;
+}
