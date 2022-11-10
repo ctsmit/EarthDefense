@@ -1,8 +1,8 @@
 let bombStartLocation = 0
 let playerPosition = 5
-let round = 10
+let round = 2
 const roundBombs = 10 + (round*2)
-const roundMil = round *100
+const roundMil = round *50
 const bombArr = []
 let bombCount
 let timer
@@ -79,7 +79,12 @@ const playerObject = {
 const game = {
    start(round) {
       createBombDiv(roundBombs)
-      new AlienBomber(bombArr[0])
+      
+setInterval(() => {
+	      new AlienBomber(bombArr[0], roundMil)
+	      bombArr.shift()
+	
+}, 1000 - roundMil);      
       
 // setInterval(() => {
 // 	      new AlienBomber(bombDiv1)
@@ -113,14 +118,14 @@ const game = {
          }
          
          class AlienBomber {
-            constructor(bombDiv) {
+            constructor(bombDiv,roundMil) {
                this.start = bombStartLocation
                this.currentLocation
                this.currentClass = ""
                this.currentRow = 2
-              
+
                this.randomStart(bombDiv)
-               this.move(bombDiv)
+               this.move(bombDiv,roundMil)
             }
             randomStart(bombDiv) {
                let newStart
@@ -128,19 +133,38 @@ const game = {
                   newStart = Math.floor(Math.random() * 9 + 1)
                } while (newStart === this.start)
                bombStartLocation = newStart
-               
+
                this.currentLocation = gridContainer.querySelector(`.s${newStart}1`)
+               console.log(this.currentLocation);
                this.currentClass = `s${newStart}1`
                this.currentLocation.appendChild(bombDiv)
             }
-            move(bombDiv) {
-               this.currentClass = this.currentClass.slice(0, 2).concat(`${this.currentRow}`)
-         this.currentRow++
-         this.currentLocation.removeChild(bombDiv)
-         this.currentLocation = gridContainer.querySelector(`.${this.currentClass}`)
-         this.currentLocation.appendChild(bombDiv)
-      }
-   }
+            move(bombDiv,roundMil) {
+               console.log(roundMil);
+               let thisClass = this.currentClass
+               let thisLocation = this.currentLocation
+               for (let i = 1; i <= 8; i++) {
+                  ;(function () {
+                     
+                     setTimeout(function () {
+                        thisClass = thisClass.slice(0, 2).concat(`${i}`)
+                        console.log(thisClass);
+                        i++
+                        thisLocation.removeChild(bombDiv)
+                        thisLocation = gridContainer.querySelector(`.${thisClass}`)
+                        thisLocation.appendChild(bombDiv)
+                        if (i != 9) {
+                           i++
+                        } else {
+                           setTimeout(() => {
+                              console.log("you lose")
+                              return
+                           }, 1000)                        }
+                     }, i * (1000 - roundMil))
+                  })(i)
+               }
+            }
+         }
 
 
 
