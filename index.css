@@ -1,5 +1,6 @@
 * {
    box-sizing: border-box;
+   
 }
 body {
    background: rgb(15, 15, 15);
@@ -7,6 +8,7 @@ body {
    justify-content: center;
    align-content: center;
    height: 80vh;
+   margin:  2rem;
 }
 .grid-container {
    background-image: url(images/vertSpaceCrop.png
@@ -16,7 +18,7 @@ body {
    background-position: center ;
    border: solid 3px aquamarine;
    border-radius: 30px; 
-   margin-top: 1rem;
+   
    display: grid;
    grid-auto-flow: column;
    grid-template-columns: repeat(9, 1fr);
@@ -67,7 +69,12 @@ body {
   .bomb{
    background-size: 90%;
   }
-
+  .grid-container{
+   width: min(100vw, 60rem);
+  }
+  body{
+   margin: 0;
+  }
 }
 @media (min-width: 479px) {
   .grid-container{
