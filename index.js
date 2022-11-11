@@ -12,6 +12,12 @@ player.className = "player"
 const playerStart = document.querySelector(".p5")
 playerStart.appendChild(player)
 
+const fireButton = document.querySelector(".fire-button")
+const leftButton = document.querySelector(".left-button")
+const rightButton = document.querySelector(".right-button")
+
+
+
 const createBombDiv = (round) => {
    for (let i = 0; i < round; i++) {
       let name = `bombDiv${i}`
@@ -121,9 +127,32 @@ document.onkeydown = function (e) {
          break
       case "ArrowUp":
          playerObject.shoot()
+         gridContainer.classList.add('animation')
+         gridContainer.onanimationend = () =>{
+         gridContainer.classList.remove('animation')
+         }
          break
       case " ":
          game.start(round)
          break
    }
 }
+
+fireButton.onclick = () => {
+   playerObject.shoot()
+   gridContainer.classList.add('animation')
+   gridContainer.onanimationend = () =>{
+   gridContainer.classList.remove('animation')
+   }
+}
+leftButton.onclick = () => {
+   playerObject.move(0)
+}
+
+rightButton.onclick = () => {
+   playerObject.move(1)
+}
+
+
+  
+

@@ -1,40 +1,99 @@
 * {
    box-sizing: border-box;
-   
 }
+
+:root {
+   background: rgb(15, 15, 15);
+}
+
 body {
    background: rgb(15, 15, 15);
    display: flex;
+   flex-direction: column;
    justify-content: center;
-   align-content: center;
-   height: 80vh;
-   margin:  2rem;
+   align-items: center;
 }
+
+footer {
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-end;
+   width: min(72vw, 70rem);
+   height: 22vh;
+   margin: -1.6rem 2rem;
+   border-bottom-left-radius: 30px;
+   border-bottom-right-radius: 30px;
+   background: rgba(115, 246, 255, 0.123);
+   border: solid 3px rgb(127, 255, 212);
+}
+
 .grid-container {
-   background-image: url(images/vertSpaceCrop.png
-   );
+   background-image: url(images/vertSpaceCrop.png);
    background-repeat: no-repeat;
    background-size: 102% 102%;
-   background-position: center ;
-   border: solid 3px aquamarine;
-   border-radius: 30px; 
-   
+   background-position: center;
+   border: solid 3px rgb(127, 255, 212);
+   border-radius: 30px;
+
    display: grid;
    grid-auto-flow: column;
    grid-template-columns: repeat(9, 1fr);
-   grid-template-rows:  repeat(9, 1fr);
+   grid-template-rows: repeat(9, 1fr);
    grid-gap: 0;
-   width: min(72vw, 60rem);
-   
-   
-   
+   width: min(72vw, 70rem);
+   height: 80vh;
+   margin-top: 0.2rem;
+   z-index: 1;
 }
-
 
 .player-container {
-  border-top: solid 3px aquamarine;
-  
+   border-top: solid 2px aquamarine;
 }
+
+.left-button {
+   background: none;
+   border: none;
+   background-image: url(images/leftArrow.png);
+   background-repeat: no-repeat;
+   background-size: 70%;
+
+   background-position: center center;
+   padding: 10px;
+   height: 80%;
+   width: 15rem;
+   opacity: 0.3;
+}
+
+.right-button {
+   background: none;
+   border: none;
+
+   background-image: url(images/rightArrow.png);
+   background-repeat: no-repeat;
+   background-size: 70%;
+
+   background-position: center;
+   padding: 10px;
+   height: 80%;
+   width: 15rem;
+   opacity: 0.3;
+}
+
+.fire-button {
+   background: none;
+   border: none;
+
+   background-image: url(images/fireButton.png);
+   background-repeat: no-repeat;
+   background-size: 30%;
+
+   background-position: center;
+   padding: 10px;
+   height: 80%;
+   width: 50rem;
+   opacity: 0.3;
+}
+
 .s11,
 .s21,
 .s31,
@@ -44,16 +103,17 @@ body {
 .s71,
 .s81,
 .s91 {
-   border-bottom: solid 3px aquamarine;
 }
+
 .player {
    background-image: url(images/spaceship.png);
    background-repeat: no-repeat;
-   background-size: 90%;
+   background-size: 85%;
    background-position: center center;
-   padding:10px;
+   padding: 10px;
    height: 100%;
 }
+
 .bomb {
    background-image: url(images/invader.png);
    background-repeat: no-repeat;
@@ -62,22 +122,94 @@ body {
 
    height: 100%;
 }
-@media (max-width: 479px) {
-  .player{
-   background-size: 130%;
-  }
-  .bomb{
-   background-size: 90%;
-  }
-  .grid-container{
-   width: min(100vw, 60rem);
-  }
-  body{
-   margin: 0;
-  }
+
+@media (max-width: 810px) and (pointer: coarse) {
+   .player {
+      background-size: 130%;
+   }
+
+   .bomb {
+      background-size: 90%;
+   }
+
+   .grid-container {
+      width: 100%;
+   }
+
+   body {
+      margin: 0;
+      height: 97vh;
+   }
+
+   footer {
+      width: 100%;
+   }
 }
-@media (min-width: 479px) {
-  .grid-container{
-   background-image: url(images/horzSpaceCrop.png);
-  }
+
+@media (min-width: 810px) {
+   .grid-container {
+      background-image: url(images/horzSpaceCrop.png);
+   }
+}
+
+@media (pointer: fine) {
+   footer {
+      opacity: 0;
+   }
+}
+
+@media (pointer: coarse) and (orientation: landscape) {
+   body {
+      margin: 0;
+      height: 93vh;
+   }
+
+   .grid-container {
+      width: 100vw;
+   }
+
+   footer {
+      width: 100vw;
+      height: 30vh;
+   }
+
+   .right-button,
+   .left-button {
+      background-size: 50%;
+      background-position: center center;
+   }
+
+   .fire-button {
+      background-size: 20%;
+   }
+
+   .player {
+      background-size: 60%;
+   }
+}
+
+.animation{
+   animation: boxShadow .2s;
+}
+@keyframes boxShadow {
+   0% {
+      opacity: 1;
+      box-shadow: none;
+   }
+   25% {
+      opacity: 1;
+      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+   }
+   50% {
+      opacity: 1;
+      box-shadow: none;
+   }
+   75% {
+      opacity: 1;
+      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+   }
+   100% {
+      opacity: 1;
+      box-shadow: none;
+   }
 }
