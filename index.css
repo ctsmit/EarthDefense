@@ -8,10 +8,12 @@
 
 body {
    background: rgb(15, 15, 15);
+   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
    display: flex;
    flex-direction: column;
    justify-content: center;
    align-items: center;
+
 }
 
 footer {
@@ -25,6 +27,7 @@ footer {
    border-bottom-right-radius: 30px;
    background: rgba(115, 246, 255, 0.123);
    border: solid 3px rgb(127, 255, 212);
+   border-top: none;
 }
 
 .grid-container {
@@ -35,6 +38,7 @@ footer {
    border: solid 3px rgb(127, 255, 212);
    border-radius: 30px;
 
+   position: relative;
    display: grid;
    grid-auto-flow: column;
    grid-template-columns: repeat(9, 1fr);
@@ -43,11 +47,48 @@ footer {
    width: min(72vw, 70rem);
    height: 80vh;
    margin-top: 0.2rem;
-   z-index: 1;
+   z-index: 2;
 }
 
 .player-container {
    border-top: solid 2px aquamarine;
+}
+.player {
+   background-image: url(images/spaceship.png);
+   background-repeat: no-repeat;
+   background-size: 85%;
+   background-position: center center;
+   padding: 10px;
+   height: 100%;
+}
+
+.bomb {
+   background-image: url(images/invader.png);
+   background-repeat: no-repeat;
+   background-size: 40%;
+   background-position: center;
+
+   height: 100%;
+}
+.restart-button,
+.start-button {
+   position: absolute;
+   left: 50%;
+   margin-left: -1.6em;
+   top: 50%;
+   margin-top: -0.7em;
+
+   font-size: 2.5em;
+   color: rgb(127, 255, 212);
+   background: none;
+   border: solid 3px rgb(127, 255, 212);
+   border-radius: 20px;
+   opacity: 0.2;
+   animation: flicker;
+   animation-delay: 1s;
+   animation-duration: 5s;
+   animation-fill-mode: forwards;
+   cursor: pointer;
 }
 
 .left-button {
@@ -56,7 +97,6 @@ footer {
    background-image: url(images/leftArrow.png);
    background-repeat: no-repeat;
    background-size: 70%;
-
    background-position: center center;
    padding: 10px;
    height: 80%;
@@ -94,33 +134,12 @@ footer {
    opacity: 0.3;
 }
 
-.s11,
-.s21,
-.s31,
-.s41,
-.s51,
-.s61,
-.s71,
-.s81,
-.s91 {
-}
+.round-counter{
+   position: absolute;
+   left: 2%;
 
-.player {
-   background-image: url(images/spaceship.png);
-   background-repeat: no-repeat;
-   background-size: 85%;
-   background-position: center center;
-   padding: 10px;
-   height: 100%;
-}
-
-.bomb {
-   background-image: url(images/invader.png);
-   background-repeat: no-repeat;
-   background-size: 40%;
-   background-position: center;
-
-   height: 100%;
+   font-size: 4rem;
+   color: rgb(127, 255, 212, .2);
 }
 
 @media (max-width: 810px) and (pointer: coarse) {
@@ -188,28 +207,56 @@ footer {
    }
 }
 
-.animation{
-   animation: boxShadow .2s;
+.animation {
+   animation: boxShadow 0.2s;
 }
+
 @keyframes boxShadow {
    0% {
-      opacity: 1;
+      opacity: 0;
       box-shadow: none;
    }
-   25% {
+   20% {
       opacity: 1;
-      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+      box-shadow: inset 0 0 5px hsl(160, 100%, 35%),inset 0 0 20px hsl(160, 100%, 35%), inset 0 0 40px hsl(160, 100%, 35%);
    }
-   50% {
-      opacity: 1;
+   30% {
+      opacity: 0;
       box-shadow: none;
    }
    75% {
       opacity: 1;
-      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+      box-shadow: inset 0 0 5px hsl(160, 100%, 35%), inset 0 0 20px hsl(160, 100%, 35%), inset 0 0 40px hsl(160, 100%, 35%);
    }
    100% {
       opacity: 1;
       box-shadow: none;
+   }
+}
+
+@keyframes flicker {
+   0% {
+      opacity: 0.1;
+      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+   }
+   2% {
+      opacity: 1;
+      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+   }
+   4% {
+      opacity: 0.1;
+      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+   }
+   10% {
+      opacity: 1;
+      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+   }
+   17% {
+      opacity: 0.2;
+      box-shadow: 0 0 10px hsl(160, 100%, 35%), 0 0 40px hsl(160, 100%, 35%), 0 0 80px hsl(160, 100%, 35%);
+   }
+   100% {
+      opacity: 1;
+      box-shadow: 0 0 40px hsl(160, 100%, 35%), 0 0 90px hsl(160, 100%, 35%), 0 0 150px hsl(160, 100%, 35%);
    }
 }

@@ -5,6 +5,7 @@ const roundBombs = 10 + round * 2
 const roundMil = round * 50
 const bombArr = []
 
+const squares = document.getElementsByClassName("squares")
 const gridContainer = document.querySelector(".grid-container")
 const bottomRow = document.querySelectorAll(".player-container")
 const player = document.createElement("div")
@@ -15,18 +16,16 @@ playerStart.appendChild(player)
 const fireButton = document.querySelector(".fire-button")
 const leftButton = document.querySelector(".left-button")
 const rightButton = document.querySelector(".right-button")
-
-
-
-const createBombDiv = (round) => {
-   for (let i = 0; i < round; i++) {
-      let name = `bombDiv${i}`
-      name = document.createElement("div")
-      name.className = "bomb"
-      bombArr.push(name)
-   }
-}
-
+const startButton = document.createElement("button")
+startButton.classList.add("start-button")
+startButton.innerText = "START"
+gridContainer.appendChild(startButton)
+const restartButton = document.createElement("button")
+restartButton.classList.add("restart-button")
+restartButton.innerText = "RESTART"
+const roundCounter = document.createElement("span")
+roundCounter.classList.add("round-counter")  
+roundCounter.innerText = round
 
 const playerObject = {
    move(direction) {
@@ -47,24 +46,58 @@ const playerObject = {
       }
    },
    shoot() {
-      
+      game.shootAnimation()
+      let columnClass = `row${playerPosition}`
+      let currentColumn = document.getElementsByClassName(`${columnClass}`)
+      for (let row = 7; row >= 0; row--) {
+         if (currentColumn[row].lastChild) {
+            currentColumn[row].removeChild(currentColumn[row].firstChild)
+            return
+         }
+      }
    },
 }
 
 const game = {
    start() {
-      createBombDiv(roundBombs)
+      gridContainer.appendChild(roundCounter)
+      gridContainer.removeChild(startButton)
+      game.createBombDiv(roundBombs)
       setInterval(() => {
-         new AlienBomber(bombArr[0], roundMil)
-         bombArr.shift()
+      new AlienBomber(bombArr[0], roundMil)
+      bombArr.shift()
       }, 1000 - roundMil)
    },
-   checkDeath() {
-      
+   createBombDiv(round) {
+      for (let i = 0; i < round + 2; i++) {
+         let name = `bombDiv${i}`
+         name = document.createElement("div")
+         name.className = "bomb"
+         bombArr.push(name)
+      }
    },
-   checkWin() {
-       
-   }
+   shootAnimation() {
+      gridContainer.classList.add("animation")
+      gridContainer.onanimationend = () => {
+      gridContainer.classList.remove("animation")
+      }
+   },
+   isDead() {
+      gridContainer.appendChild(restartButton)
+   },
+   restart() {
+      round++
+      for (let square of gridContainer.children) {
+         if (square.classList.contains("squares")) {
+            square.textContent = ""
+         }
+      }
+      gridContainer.removeChild(restartButton)
+      gridContainer.appendChild(startButton)
+      playerStart.appendChild(player)
+
+   },
+   checkWin() {},
 }
 
 class AlienBomber {
@@ -72,16 +105,16 @@ class AlienBomber {
       this.currentLocation = {}
       this.currentClass = ""
       this.randomStart(bombDiv)
-	      this.move(bombDiv, roundMil)
-	
-}
+      this.move(bombDiv, roundMil)
+   }
    randomStart(bombDiv) {
-      let newStart 
+      if (typeof bombDiv != "object") return
+      let newStart
       do {
          newStart = Math.floor(Math.random() * 9 + 1)
       } while (newStart === bombStartLocation)
       bombStartLocation = newStart
-      
+
       this.currentLocation = gridContainer.querySelector(`.s${newStart}1`)
       this.currentClass = `s${newStart}1`
       this.currentLocation.appendChild(bombDiv)
@@ -89,21 +122,17 @@ class AlienBomber {
    move(bombDiv, roundMil) {
       let thisClass = this.currentClass
       let thisLocation = this.currentLocation
-      for (let i = 1; i <= 8; i++) {
+      for (let i = 1; i <= 9; i++) {
          ;(function () {
             setTimeout(function () {
+               if (!thisLocation.lastChild || bombDiv.parentElement === null) return
                thisClass = thisClass.slice(0, 2).concat(`${i}`)
-               i++
                thisLocation.removeChild(bombDiv)
                thisLocation = gridContainer.querySelector(`.${thisClass}`)
                thisLocation.appendChild(bombDiv)
-               if (i != 9) {
-                  i++
-               } else {
-                  setTimeout(() => {
-                     console.log("you lose")
-                     return
-                  }, 1000)
+               if (i === 9) {
+                  game.isDead()
+                  return
                }
             }, i * (1000 - roundMil))
          })(i)
@@ -127,10 +156,6 @@ document.onkeydown = function (e) {
          break
       case "ArrowUp":
          playerObject.shoot()
-         gridContainer.classList.add('animation')
-         gridContainer.onanimationend = () =>{
-         gridContainer.classList.remove('animation')
-         }
          break
       case " ":
          game.start(round)
@@ -140,10 +165,6 @@ document.onkeydown = function (e) {
 
 fireButton.onclick = () => {
    playerObject.shoot()
-   gridContainer.classList.add('animation')
-   gridContainer.onanimationend = () =>{
-   gridContainer.classList.remove('animation')
-   }
 }
 leftButton.onclick = () => {
    playerObject.move(0)
@@ -152,7 +173,12 @@ leftButton.onclick = () => {
 rightButton.onclick = () => {
    playerObject.move(1)
 }
-
-
-  
-
+startButton.onclick = () => {
+   game.start()
+}
+restartButton.onclick = () => {
+   game.restart()
+   round++
+   
+}
+console.log(gridContainer);
