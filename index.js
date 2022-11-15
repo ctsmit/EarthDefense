@@ -47,15 +47,20 @@ const playerObject = {
          gridContainer.querySelector(`.p${playerPosition}`).appendChild(player)
       }
    },
-   shoot() {
-      game.shootAnimation()
+   shoot() { 
+      let hit = true
       let columnClass = `row${playerPosition}`
       let currentColumn = document.getElementsByClassName(`${columnClass}`)
       for (let row = 7; row >= 0; row--) {
          if (currentColumn[row].lastChild) {
+            hit = true
+            game.shootAnimation(hit)
             currentColumn[row].removeChild(currentColumn[row].firstChild)
             bombsRemaining--
             return
+         } else {
+            hit = false
+            game.shootAnimation(hit)
          }
       }
    },
@@ -68,7 +73,10 @@ const game = {
 
       roundCounter.innerText = round
       gridContainer.appendChild(roundCounter)
-      gridContainer.removeChild(startButton)
+      startButton.innerText = `WAVE ${round}`
+      setTimeout(() => {
+         gridContainer.removeChild(startButton)
+      }, 1500);
 
       game.createBombDiv(roundBombs)
       bombInterval = () => {
@@ -89,37 +97,43 @@ const game = {
       }
       bombsRemaining = roundBombs
    },
-   shootAnimation() {
+   shootAnimation(hit) {
       let columnClass = `.p${playerPosition}`
       let currentColumn = document.querySelector(`${columnClass}`)
-      console.log(currentColumn);
       currentColumn.appendChild(missile)
       gridContainer.onanimationend = () => {
          currentColumn.removeChild(missile)
       }
-      gridContainer.classList.add("animation")
-      gridContainer.onanimationend = () => {
-      gridContainer.classList.remove("animation")
+      if (hit === true) {
+         gridContainer.classList.add("animation")
+         gridContainer.onanimationend = () => {
+         gridContainer.classList.remove("animation")
+         }
       }
    },
    isDead() {
       gridContainer.appendChild(restartButton)
       playerAlive = false
+      restartButton.style.animation = "flicker 5s 1s"
+      gridContainer.classList.add("dead-animation")
    },
    restart() {
       bombArr = []
       round = 1
       playerAlive = true
-
+      bombsRemaining = 0
+      playerPosition = 5
+      
       for (let square of gridContainer.children) {
          if (square.classList.contains("squares")) {
             square.textContent = ""
          }
       }
+      gridContainer.classList.remove("dead-animation")
       gridContainer.removeChild(restartButton)
       gridContainer.appendChild(startButton)
+      startButton.innerText = "START"
       playerStart.appendChild(player)
-      player.appendChild(missile)
    },
    checkWin() {
       if (playerAlive === true && bombsRemaining === 0) {
@@ -151,7 +165,6 @@ class AlienBomber {
       this.currentLocation.appendChild(bombDiv)
    }
    move(bombDiv, roundMil) {
-      console.log(roundMil)
       let thisClass = this.currentClass
       let thisLocation = this.currentLocation
       for (let i = 1; i <= 9; i++) {
@@ -187,7 +200,7 @@ document.onkeydown = function (e) {
          playerObject.move(1)
          break
       case "ArrowUp":
-         playerObject.shoot()
+            playerObject.shoot()
          break
       case " ":
          if (playerAlive === false) {
@@ -200,7 +213,7 @@ document.onkeydown = function (e) {
 }
 
 fireButton.onclick = () => {
-   playerObject.shoot()
+      playerObject.shoot()
 }
 leftButton.onclick = () => {
    playerObject.move(0)

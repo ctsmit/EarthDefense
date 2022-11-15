@@ -4,8 +4,13 @@
 }
 :root {
    background: rgb(15, 15, 15);
+   margin: 0;
+
 }
 body {
+   margin: 0;
+   width: 100%;
+   height: 100vh;
    background: rgb(15, 15, 15);
    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
    display: flex;
@@ -19,7 +24,7 @@ footer {
    align-items: flex-end;
    width: min(72vw, 70rem);
    height: 22vh;
-   margin: -1.6rem 2rem;
+   margin-top: -1.6rem;
    border-bottom-left-radius: 30px;
    border-bottom-right-radius: 30px;
    background: rgba(115, 246, 255, 0.123);
@@ -59,7 +64,7 @@ footer {
 }
 .missile{
    pointer-events: none;
-   position: absolute;
+   
    display: block;
    bottom: -100%;
    left: 50%;
@@ -70,10 +75,11 @@ footer {
    opacity: 0;
    z-index: 9000;
    animation: fireMissile;
-   animation-duration: .2s;
+   animation-duration: .15s;
 }
 
 .bomb {
+   position: relative;
    background-image: url(images/invader.png);
    background-repeat: no-repeat;
    background-size: 40%;
@@ -96,7 +102,7 @@ footer {
    opacity: 0.1;
    z-index: 9999;
    animation: flicker;
-   animation-delay: 1s;
+   animation-delay: .5s;
    animation-duration: 5s;
    animation-fill-mode: forwards;
    cursor: pointer;
@@ -143,7 +149,7 @@ footer {
 }
 .round-counter{
    position: absolute;
-   left: 2%;
+   left: 3%;
    font-size: 2rem;
    color: rgb(127, 255, 212, .15);
 }
@@ -157,50 +163,54 @@ footer {
       background-image: url(images/horzSpaceCrop.png);
    }
 }
-@media (max-width: 810px) and (pointer: coarse) {
+@media (max-width: 811px) and (pointer: coarse) {
    .player {
-      background-size: 130%;
+      background-size: 100%;
    }
    .bomb {
       background-size: 90%;
    }
    .grid-container {
-      width: 100%;
-   }
-   body {
-      margin: 0;
-      height: 97vh;
+     margin: 0;
+     width: 100vw;
+     height: 100vh;
    }
    footer {
-      width: 100%;
+      width: 100vw;
    }
 }
 @media (pointer: coarse) and (orientation: landscape) {
-   body {
-      margin: 0;
-      height: 93vh;
-   }
    .grid-container {
       width: 100vw;
    }
    footer {
       width: 100vw;
-      height: 30vh;
    }
    .right-button,
    .left-button {
-      background-size: 50%;
+      background-size: 13vh;
       background-position: center center;
    }
    .fire-button {
-      background-size: 20%;
+      background-size: 20vh;
    }
    .player {
       background-size: 60%;
    }
 }
 
-
+.dead-animation{
+   animation:boxShadow2 7s forwards;
+  
+}
+@keyframes boxShadow2 {
+   0% {
+      box-shadow: none;
+   }
+   100% {
+      box-shadow: inset 0 0 15rem hsl(0, 0%, 0%), inset 0 0 40rem hsl(0, 0%, 0%), inset 0 0 80rem hsl(0, 0%, 0%);
+   }
+}
 
 .animation {
    animation: boxShadow 0.2s;
