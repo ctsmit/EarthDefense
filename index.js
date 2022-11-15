@@ -1,9 +1,10 @@
 let bombStartLocation = 0
 let playerPosition = 5
 let round = 1
-const roundBombs = 10 + round * 2
-const roundMil = round * 50
-const bombArr = []
+let playerAlive = true
+let bombArr = []
+let bombsRemaining
+let intervalId
 
 const squares = document.getElementsByClassName("squares")
 const gridContainer = document.querySelector(".grid-container")
@@ -23,9 +24,8 @@ gridContainer.appendChild(startButton)
 const restartButton = document.createElement("button")
 restartButton.classList.add("restart-button")
 restartButton.innerText = "RESTART"
-const roundCounter = document.createElement("span")
-roundCounter.classList.add("round-counter")  
-roundCounter.innerText = round
+let roundCounter = document.createElement("span")
+roundCounter.classList.add("round-counter")
 
 const playerObject = {
    move(direction) {
@@ -46,12 +46,14 @@ const playerObject = {
       }
    },
    shoot() {
+      console.log(bombsRemaining)
       game.shootAnimation()
       let columnClass = `row${playerPosition}`
       let currentColumn = document.getElementsByClassName(`${columnClass}`)
       for (let row = 7; row >= 0; row--) {
          if (currentColumn[row].lastChild) {
             currentColumn[row].removeChild(currentColumn[row].firstChild)
+            bombsRemaining--
             return
          }
       }
@@ -60,33 +62,47 @@ const playerObject = {
 
 const game = {
    start() {
+      let roundBombs = 10 + round * 2
+      let roundMil = round * 50
+
+      roundCounter.innerText = round
       gridContainer.appendChild(roundCounter)
       gridContainer.removeChild(startButton)
+
       game.createBombDiv(roundBombs)
-      setInterval(() => {
-      new AlienBomber(bombArr[0], roundMil)
-      bombArr.shift()
-      }, 1000 - roundMil)
+      bombInterval = () => {
+         if (playerAlive === false) clearInterval(intervalKey)
+         new AlienBomber(bombArr[0], roundMil)
+         bombArr.shift()
+         game.checkWin()
+      }
+      const intervalKey = setInterval(bombInterval, 1000 - roundMil)
+      intervalId = intervalKey
    },
-   createBombDiv(round) {
-      for (let i = 0; i < round + 2; i++) {
+   createBombDiv(roundBombs) {
+      for (let i = 0; i < roundBombs; i++) {
          let name = `bombDiv${i}`
          name = document.createElement("div")
          name.className = "bomb"
          bombArr.push(name)
       }
+      bombsRemaining = roundBombs
    },
    shootAnimation() {
       gridContainer.classList.add("animation")
       gridContainer.onanimationend = () => {
-      gridContainer.classList.remove("animation")
+         gridContainer.classList.remove("animation")
       }
    },
    isDead() {
       gridContainer.appendChild(restartButton)
+      playerAlive = false
    },
    restart() {
-      round++
+      bombArr = []
+      round = 1
+      playerAlive = true
+
       for (let square of gridContainer.children) {
          if (square.classList.contains("squares")) {
             square.textContent = ""
@@ -95,9 +111,15 @@ const game = {
       gridContainer.removeChild(restartButton)
       gridContainer.appendChild(startButton)
       playerStart.appendChild(player)
-
    },
-   checkWin() {},
+   checkWin() {
+      if (playerAlive === true && bombsRemaining === 0) {
+         clearInterval(intervalId)
+         round++
+         gridContainer.appendChild(startButton)
+         startButton.innerText = "NEXT ROUND"
+      }
+   },
 }
 
 class AlienBomber {
@@ -120,6 +142,7 @@ class AlienBomber {
       this.currentLocation.appendChild(bombDiv)
    }
    move(bombDiv, roundMil) {
+      console.log(roundMil)
       let thisClass = this.currentClass
       let thisLocation = this.currentLocation
       for (let i = 1; i <= 9; i++) {
@@ -158,7 +181,11 @@ document.onkeydown = function (e) {
          playerObject.shoot()
          break
       case " ":
-         game.start(round)
+         if (playerAlive === false) {
+            game.restart()
+         } else if (bombsRemaining === 0 || round === 1) {
+            game.start()
+         }
          break
    }
 }
@@ -169,7 +196,6 @@ fireButton.onclick = () => {
 leftButton.onclick = () => {
    playerObject.move(0)
 }
-
 rightButton.onclick = () => {
    playerObject.move(1)
 }
@@ -178,7 +204,4 @@ startButton.onclick = () => {
 }
 restartButton.onclick = () => {
    game.restart()
-   round++
-   
 }
-console.log(gridContainer);
