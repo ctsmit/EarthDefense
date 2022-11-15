@@ -176,10 +176,10 @@ footer {
    }
    footer {
       width: 100vw;
-      margin-bottom: 1.6rem;
    }
    body{
       margin-top: 0;
+      height: 100vh;
    }
 }
 @media (pointer: coarse) and (orientation: landscape) {
