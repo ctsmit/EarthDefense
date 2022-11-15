@@ -9,6 +9,8 @@ let intervalId
 const squares = document.getElementsByClassName("squares")
 const gridContainer = document.querySelector(".grid-container")
 const bottomRow = document.querySelectorAll(".player-container")
+const missile = document.createElement("span")
+missile.classList.add("missile")
 const player = document.createElement("div")
 player.className = "player"
 const playerStart = document.querySelector(".p5")
@@ -46,7 +48,6 @@ const playerObject = {
       }
    },
    shoot() {
-      console.log(bombsRemaining)
       game.shootAnimation()
       let columnClass = `row${playerPosition}`
       let currentColumn = document.getElementsByClassName(`${columnClass}`)
@@ -89,9 +90,16 @@ const game = {
       bombsRemaining = roundBombs
    },
    shootAnimation() {
+      let columnClass = `.p${playerPosition}`
+      let currentColumn = document.querySelector(`${columnClass}`)
+      console.log(currentColumn);
+      currentColumn.appendChild(missile)
+      gridContainer.onanimationend = () => {
+         currentColumn.removeChild(missile)
+      }
       gridContainer.classList.add("animation")
       gridContainer.onanimationend = () => {
-         gridContainer.classList.remove("animation")
+      gridContainer.classList.remove("animation")
       }
    },
    isDead() {
@@ -111,6 +119,7 @@ const game = {
       gridContainer.removeChild(restartButton)
       gridContainer.appendChild(startButton)
       playerStart.appendChild(player)
+      player.appendChild(missile)
    },
    checkWin() {
       if (playerAlive === true && bombsRemaining === 0) {

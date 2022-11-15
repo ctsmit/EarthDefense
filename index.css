@@ -2,11 +2,9 @@
    box-sizing: border-box;
    touch-action: manipulation;
 }
-
 :root {
    background: rgb(15, 15, 15);
 }
-
 body {
    background: rgb(15, 15, 15);
    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
@@ -15,7 +13,6 @@ body {
    justify-content: center;
    align-items: center;
 }
-
 footer {
    display: flex;
    justify-content: space-between;
@@ -29,7 +26,6 @@ footer {
    border: solid 3px rgb(127, 255, 212);
    border-top: none;
 }
-
 .grid-container {
    background-image: url(images/vertSpaceCrop.png);
    background-repeat: no-repeat;
@@ -49,8 +45,8 @@ footer {
    margin-top: 0.2rem;
    z-index: 2;
 }
-
 .player-container {
+   position: relative;
    border-top: solid 2px aquamarine;
 }
 .player {
@@ -60,6 +56,21 @@ footer {
    background-position: center center;
    padding: 10px;
    height: 100%;
+}
+.missile{
+   pointer-events: none;
+   position: absolute;
+   display: block;
+   bottom: -100%;
+   left: 50%;
+   margin-left: -1.5px;
+   width: 3px;
+   height: 100%;
+   background: linear-gradient(45deg, transparent, aquamarine 95%, rgb(255, 255, 255));
+   opacity: 0;
+   z-index: 9000;
+   animation: fireMissile;
+   animation-duration: .2s;
 }
 
 .bomb {
@@ -90,7 +101,6 @@ footer {
    animation-fill-mode: forwards;
    cursor: pointer;
 }
-
 .left-button {
    background: none;
    border: none;
@@ -103,7 +113,6 @@ footer {
    width: 15rem;
    opacity: 0.3;
 }
-
 .right-button {
    background: none;
    border: none;
@@ -118,7 +127,6 @@ footer {
    width: 15rem;
    opacity: 0.3;
 }
-
 .fire-button {
    background: none;
    border: none;
@@ -133,107 +141,88 @@ footer {
    width: 50rem;
    opacity: 0.3;
 }
-
 .round-counter{
    position: absolute;
    left: 2%;
-
-   font-size: 4rem;
-   color: rgb(127, 255, 212, .2);
+   font-size: 2rem;
+   color: rgb(127, 255, 212, .15);
 }
-
-@media (max-width: 810px) and (pointer: coarse) {
-   .player {
-      background-size: 130%;
-   }
-
-   .bomb {
-      background-size: 90%;
-   }
-
-   .grid-container {
-      width: 100%;
-   }
-
-   body {
-      margin: 0;
-      height: 97vh;
-   }
-
-   footer {
-      width: 100%;
-   }
-}
-
-@media (min-width: 810px) {
-   .grid-container {
-      background-image: url(images/horzSpaceCrop.png);
-   }
-}
-
 @media (pointer: fine) {
    footer {
       opacity: 0;
    }
 }
-
+@media (min-width: 810px) {
+   .grid-container {
+      background-image: url(images/horzSpaceCrop.png);
+   }
+}
+@media (max-width: 810px) and (pointer: coarse) {
+   .player {
+      background-size: 130%;
+   }
+   .bomb {
+      background-size: 90%;
+   }
+   .grid-container {
+      width: 100%;
+   }
+   body {
+      margin: 0;
+      height: 97vh;
+   }
+   footer {
+      width: 100%;
+   }
+}
 @media (pointer: coarse) and (orientation: landscape) {
    body {
       margin: 0;
       height: 93vh;
    }
-
    .grid-container {
       width: 100vw;
    }
-
    footer {
       width: 100vw;
       height: 30vh;
    }
-
    .right-button,
    .left-button {
       background-size: 50%;
       background-position: center center;
    }
-
    .fire-button {
       background-size: 20%;
    }
-
    .player {
       background-size: 60%;
    }
 }
 
+
+
 .animation {
    animation: boxShadow 0.2s;
 }
-
 @keyframes boxShadow {
    0% {
-      opacity: 0;
       box-shadow: none;
    }
    20% {
-      opacity: 1;
-      box-shadow: inset 0 0 5px hsl(160, 100%, 35%),inset 0 0 20px hsl(160, 100%, 35%), inset 0 0 40px hsl(160, 100%, 35%);
+      box-shadow: inset 0 0 5px hsl(160, 100%, 35%),inset 0 0 10px hsl(160, 100%, 35%), inset 0 0 30px hsl(160, 100%, 35%);
    }
    30% {
-      opacity: 0;
       box-shadow: none;
    }
    75% {
-      opacity: 1;
-      box-shadow: inset 0 0 5px hsl(160, 100%, 35%), inset 0 0 20px hsl(160, 100%, 35%), inset 0 0 40px hsl(160, 100%, 35%);
+      box-shadow: inset 0 0 5px hsl(160, 100%, 35%), inset 0 0 10px hsl(160, 100%, 35%), inset 0 0 30px hsl(160, 100%, 35%);
    }
    100% {
-      opacity: 1;
+      
       box-shadow: none;
    }
 }
-
 @keyframes flicker {
    0% {
       opacity: 0.1;
@@ -258,5 +247,15 @@ footer {
    100% {
       opacity: 1;
       box-shadow: 0 0 40px hsl(160, 100%, 35%), 0 0 90px hsl(160, 100%, 35%), 0 0 150px hsl(160, 100%, 35%);
+   }
+}
+
+@keyframes fireMissile {
+   0%{opacity: .5;
+      bottom: 0%;
+   }
+   100%{
+      opacity: 1;
+      bottom: 800%;
    }
 }
