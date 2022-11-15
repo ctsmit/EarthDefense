@@ -64,7 +64,7 @@ footer {
 }
 .missile{
    pointer-events: none;
-   
+   position: absolute;
    display: block;
    bottom: -100%;
    left: 50%;
@@ -171,7 +171,7 @@ footer {
       background-size: 90%;
    }
    .grid-container {
-     margin: 0;
+      margin: 0;
      width: 100vw;
      height: 100vh;
    }
@@ -181,6 +181,7 @@ footer {
 }
 @media (pointer: coarse) and (orientation: landscape) {
    .grid-container {
+      margin: 0;
       width: 100vw;
    }
    footer {
