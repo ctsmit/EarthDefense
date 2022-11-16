@@ -181,7 +181,7 @@ footer {
    body{
       margin-top: 0;
       height: 100vh;
-      min-height: fit-content;
+      min-height: -webkit-fill-available;
       width: 100vw;
    }
 }
@@ -202,6 +202,9 @@ footer {
    }
    .player {
       background-size: 60%;
+   }
+   .bomb{
+      background-size: 40%;
    }
    body{
       margin-top: 0;
