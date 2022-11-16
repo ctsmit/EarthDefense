@@ -8,8 +8,8 @@
 }
 body {
    margin: 0;
-   margin-top: .6rem;
    width: 100vw;
+   height: 100vh;
    background: rgb(15, 15, 15);
    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
    display: flex;
@@ -46,7 +46,7 @@ footer {
    grid-gap: 0;
    width: min(72vw, 70rem);
    height: 80vh;
-   margin-top: 0.2rem;
+   margin-top: 0.8rem;
    z-index: 2;
    overflow: hidden;
 }
@@ -164,42 +164,33 @@ footer {
    }
 }
 @media (max-width: 811px) and (pointer: coarse) {
+   body{
+      position: fixed;
+      inset: 0;
+   }
+   .grid-container {
+     margin-top: 0; 
+     width: 100vw;
+   }
+   footer {
+      width: 100vw;
+    }
    .player {
       background-size: 100%;
    }
    .bomb {
       background-size: 90%;
    }
-   .grid-container {
-     width: 100vw;
-    
-   }
-   footer {
-      width: 100vw;
-   }
-   body{
-      position: fixed;
-      inset: 0;
-      margin-top: 0;
-      height: 100vh;
-      max-height: 100%;
-      width: 100vw;
-   }
 }
 @media (pointer: coarse) and (orientation: landscape) {
+   body{
+  }
    .grid-container {
+      margin-top: 0;
       width: 100vw;
    }
    footer {
       width: 100vw;
-   }
-   .right-button,
-   .left-button {
-      background-size: 13vh;
-      background-position: center center;
-   }
-   .fire-button {
-      background-size: 20vh;
    }
    .player {
       background-size: 60%;
@@ -207,12 +198,14 @@ footer {
    .bomb{
       background-size: 40%;
    }
-   body{
-      margin-top: 0;
-      height: 100vh;
-      max-height: 100%;
-      width: 100vw;
-  }
+   .fire-button {
+      background-size: 20vh;
+   }
+   .right-button,
+   .left-button {
+      background-size: 13vh;
+      background-position: center center;
+   }
 }
 
 .dead-animation{
