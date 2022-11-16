@@ -139,7 +139,7 @@ footer {
 
    background-image: url(images/fireButton.png);
    background-repeat: no-repeat;
-   background-size: 30%;
+   background-size: 10vh;
 
    background-position: center;
    padding: 10px;
@@ -172,14 +172,15 @@ footer {
    }
    .grid-container {
      width: 100vw;
-     height: 100%;
+    
    }
    footer {
       width: 100vw;
    }
    body{
       margin-top: 0;
-      height: 100vh;
+      height: calc(100vh - calc(100vh - 100%));
+      width: 100vw;
    }
 }
 @media (pointer: coarse) and (orientation: landscape) {
@@ -200,9 +201,10 @@ footer {
    .player {
       background-size: 60%;
    }
-  body{
-   margin-top: 0;
-   height: 100vh;
+   body{
+      margin-top: 0;
+      height: calc(100vh - calc(100vh - 100%));
+      width: 100vw;
   }
 }
 
