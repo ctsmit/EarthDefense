@@ -181,7 +181,7 @@ footer {
    body{
       margin-top: 0;
       height: 100vh;
-      min-height: -webkit-fill-available;
+      max-height: 100%;
       width: 100vw;
    }
 }
@@ -209,7 +209,7 @@ footer {
    body{
       margin-top: 0;
       height: 100vh;
-      min-height: -webkit-fill-available;
+      max-height: 100%;
       width: 100vw;
   }
 }
