@@ -15,7 +15,6 @@ const player = document.createElement("div")
 player.className = "player"
 const playerStart = document.querySelector(".p5")
 playerStart.appendChild(player)
-
 const fireButton = document.querySelector(".fire-button")
 const leftButton = document.querySelector(".left-button")
 const rightButton = document.querySelector(".right-button")
@@ -28,7 +27,8 @@ restartButton.classList.add("restart-button")
 restartButton.innerText = "RESTART"
 let roundCounter = document.createElement("span")
 roundCounter.classList.add("round-counter")
-
+/////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////
 const playerObject = {
    move(direction) {
       if (playerPosition === 1 && direction === 0) {
@@ -54,13 +54,27 @@ const playerObject = {
       for (let row = 7; row >= 0; row--) {
          if (currentColumn[row].lastChild) {
             hit = true
-            game.shootAnimation(hit)
+            playerObject.shootAnimation(hit)
             currentColumn[row].removeChild(currentColumn[row].firstChild)
             bombsRemaining--
             return
          } else {
             hit = false
-            game.shootAnimation(hit)
+            playerObject.shootAnimation(hit)
+         }
+      }                                                                                
+   },
+   shootAnimation(hit) {
+      let columnClass = `.p${playerPosition}`
+      let currentColumn = document.querySelector(`${columnClass}`)
+      currentColumn.appendChild(missile)
+      gridContainer.onanimationend = () => {
+         currentColumn.removeChild(missile)
+      }
+      if (hit === true) {
+         gridContainer.classList.add("animation")
+         gridContainer.onanimationend = () => {
+         gridContainer.classList.remove("animation")
          }
       }
    },
@@ -97,20 +111,6 @@ const game = {
       }
       bombsRemaining = roundBombs
    },
-   shootAnimation(hit) {
-      let columnClass = `.p${playerPosition}`
-      let currentColumn = document.querySelector(`${columnClass}`)
-      currentColumn.appendChild(missile)
-      gridContainer.onanimationend = () => {
-         currentColumn.removeChild(missile)
-      }
-      if (hit === true) {
-         gridContainer.classList.add("animation")
-         gridContainer.onanimationend = () => {
-         gridContainer.classList.remove("animation")
-         }
-      }
-   },
    isDead() {
       gridContainer.appendChild(restartButton)
       playerAlive = false
@@ -144,7 +144,8 @@ const game = {
       }
    },
 }
-
+//////////////////////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////////////////////
 class AlienBomber {
    constructor(bombDiv, roundMil) {
       this.currentLocation = {}
@@ -184,7 +185,8 @@ class AlienBomber {
       }
    }
 }
-
+////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 document.onkeydown = function (e) {
    switch (e.key) {
       case "ArrowLeft":
@@ -200,20 +202,23 @@ document.onkeydown = function (e) {
          playerObject.move(1)
          break
       case "ArrowUp":
-            playerObject.shoot()
+         playerObject.shoot()
+         break
+      case "w":
+         playerObject.shoot()
          break
       case " ":
          if (playerAlive === false) {
             game.restart()
-         } else if (bombsRemaining === 0 || round === 1) {
+         } else if (bombsRemaining === 0 || undefined) {
             game.start()
          }
          break
    }
-}
+   }
 
 fireButton.onclick = () => {
-      playerObject.shoot()
+   playerObject.shoot()
 }
 leftButton.onclick = () => {
    playerObject.move(0)
