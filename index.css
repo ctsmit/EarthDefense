@@ -17,27 +17,14 @@ body {
    justify-content: center;
    align-items: center;
 }
-footer {
-   display: flex;
-   justify-content: space-between;
-   align-items: flex-end;
-   width: min(72vw, 70rem);
-   height: 22vh;
-   margin-top: -1.6rem;
-   border-bottom-left-radius: 30px;
-   border-bottom-right-radius: 30px;
-   background: rgba(115, 246, 255, 0.123);
-   border: solid 3px rgb(127, 255, 212);
-   border-top: none;
-}
 .grid-container {
    background-image: url(images/vertSpaceCrop.png);
    background-repeat: no-repeat;
    background-size: 102% 102%;
    background-position: center;
    border: solid 3px rgb(127, 255, 212);
-   border-radius: 30px;
-
+   border-radius: 50px;
+   
    position: relative;
    display: grid;
    grid-auto-flow: column;
@@ -49,6 +36,19 @@ footer {
    margin-top: 0.8rem;
    z-index: 2;
    overflow: hidden;
+}
+footer {
+   display: flex;
+   justify-content: space-between;
+   align-items: flex-end;
+   width: min(72vw, 70rem);
+   height: 22vh;
+   margin-top: -1.6rem;
+   border-bottom-left-radius: 50px;
+   border-bottom-right-radius: 50px;
+   background: rgba(115, 246, 255, 0.123);
+   border: solid 3px rgb(127, 255, 212);
+   border-top: none;
 }
 .player-container {
    position: relative;
@@ -167,13 +167,18 @@ footer {
    body{
       position: fixed;
       inset: 0;
+      height: 100vh;
+      max-height: 100%;
    }
    .grid-container {
      margin-top: 0; 
      width: 100vw;
+     border-radius: 30px;
    }
    footer {
       width: 100vw;
+      border-bottom-right-radius: 30px;
+      border-bottom-left-radius: 30px;
     }
    .player {
       background-size: 100%;
@@ -188,9 +193,13 @@ footer {
    .grid-container {
       margin-top: 0;
       width: 100vw;
+      border-radius: 30px;
+
    }
    footer {
       width: 100vw;
+      border-bottom-right-radius: 30px;
+      border-bottom-left-radius: 30px;
    }
    .player {
       background-size: 60%;
