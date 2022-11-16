@@ -165,8 +165,8 @@ footer {
 }
 @media (max-width: 811px) and (pointer: coarse) {
    body{
-      /* position: fixed;
-      inset: 0; */
+      position: fixed;
+      inset: 0;
       height: 100vh;
       max-height: 100%;
    }
