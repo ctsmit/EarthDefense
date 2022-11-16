@@ -32,7 +32,7 @@ body {
    grid-template-rows: repeat(9, 1fr);
    grid-gap: 0;
    width: min(72vw, 70rem);
-   height: 80vh;
+   height: 100%;
    margin-top: 0.8rem;
    z-index: 2;
    overflow: hidden;
@@ -42,7 +42,7 @@ footer {
    justify-content: space-between;
    align-items: flex-end;
    width: min(72vw, 70rem);
-   height: 22vh;
+   height: 28%;
    margin-top: -1.6rem;
    border-bottom-left-radius: 50px;
    border-bottom-right-radius: 50px;
@@ -165,8 +165,8 @@ footer {
 }
 @media (max-width: 811px) and (pointer: coarse) {
    body{
-      position: fixed;
-      inset: 0;
+      /* position: fixed;
+      inset: 0; */
       height: 100vh;
       max-height: 100%;
    }
@@ -189,7 +189,9 @@ footer {
 }
 @media (pointer: coarse) and (orientation: landscape) {
    body{
-  }
+      height: 100vh;
+      max-height: 100%;
+   }
    .grid-container {
       margin-top: 0;
       width: 100vw;
