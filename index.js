@@ -153,30 +153,30 @@ const game = {
 
 const sounds = {
    fireSound() {
-      let fire = new Audio("sounds/fireSound.wav")
+      let fire = new Audio("sounds/fireSound.mp3")
       fire.volume = 0.2
       fire.playbackRate = 1.5
       fire.play()
    },
    alienSound() {
-      let alien = new Audio("sounds/alienMove5.wav")
+      let alien = new Audio("sounds/alienMove5.mp3")
       alien.volume = 0.1
       alien.playbackRate = 1.2
       alien.play()
    },
    deadSound() {
-      let dead = new Audio("sounds/gameOver.wav")
+      let dead = new Audio("sounds/gameOver.mp3")
       dead.volume = 0.2
       dead.play()
    },
    roundWin() {
-      let win = new Audio("sounds/roundWin2.wav")
+      let win = new Audio("sounds/roundWin2.mp3")
       win.volume = 0.2
       win.playbackRate = 0.5
       win.play()
    },
    roundStart() {
-      let start = new Audio("sounds/roundStart.wav")
+      let start = new Audio("sounds/roundStart.mp3")
       start.volume = 0.2
       start.playbackRate = 2
       start.play()
@@ -211,7 +211,7 @@ class AlienBomber {
          ;(function () {
             setTimeout(function () {
                if (!thisLocation.lastChild || bombDiv.parentElement === null) return
-               // sounds.alienSound()
+               sounds.alienSound()
                thisClass = thisClass.slice(0, 2).concat(`${i}`)
                thisLocation.removeChild(bombDiv)
                thisLocation = gridContainer.querySelector(`.${thisClass}`)
