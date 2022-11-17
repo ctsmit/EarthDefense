@@ -3,7 +3,8 @@ A retro inspired alien defense shooter made with JS, CSS, and HTML.
  
 https://ctsmit.github.io/EarthDefense/
 # Screenshots
-<img src="https://user-images.githubusercontent.com/114516481/202484822-84692321-1234-4824-b2bf-e1bbc3720269.PNG" width="500px"><img src="https://user-images.githubusercontent.com/114516481/202484836-f26a800d-5b78-498f-86d1-82f7dddbc191.PNG" width= "500px">
+<img src="https://user-images.githubusercontent.com/114516481/202484822-84692321-1234-4824-b2bf-e1bbc3720269.PNG" width="500px">
+<img src="https://user-images.githubusercontent.com/114516481/202484836-f26a800d-5b78-498f-86d1-82f7dddbc191.PNG" width= "500px">
 
 # How to Play
 ### On Keyboard: 
@@ -25,6 +26,11 @@ https://github.com/ctsmit/EarthDefense.git
 All Vanilla JS and CSS
 
 # Credits
+Inspired by games like Space Invaders and Kaboom
+
+Shoutout to Tishana for being a OG Kaboom player
+
 Game Assets obtained from https://www.youtube.com/watch?v=MCVU0w73uKI&t
 
 Sorry I didn't actually watch your video...
+
