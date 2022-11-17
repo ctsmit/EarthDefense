@@ -7,10 +7,13 @@ A retro inspired alien defense shooter made with JS, CSS, and HTML.
 # How to Play
 ### On Keyboard: 
 Left/A and Right/D for player movement
+
 Up/W for shoot
+
 Space for Start and Next Round
 ### On Mobile:
 Arrow Buttons
+
 Good Luck!
 
 # Installation
