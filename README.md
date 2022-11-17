@@ -21,7 +21,7 @@ Good Luck!
 
 # Installation
 
-###To fork my repo:
+### To fork my repo:
 
 you will see a button in the UPPER RIGHT hand corner that says Fork. 
 
