@@ -13,11 +13,19 @@ Left/A and Right/D for player movement
 Up/W for shoot
 
 Space for Start and Next Round
+
 ### On Mobile:
 Arrow Buttons
 
 Good Luck!
 
 # Installation
+https://github.com/ctsmit/EarthDefense.git
+
 # Technologies Used
+All Vanilla JS and CSS
+
 # Credits
+Game Assets obtained from https://www.youtube.com/watch?v=MCVU0w73uKI&t
+
+Sorry I didn't watch your video...
