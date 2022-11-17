@@ -211,7 +211,7 @@ class AlienBomber {
          ;(function () {
             setTimeout(function () {
                if (!thisLocation.lastChild || bombDiv.parentElement === null) return
-               sounds.alienSound()
+               // sounds.alienSound()
                thisClass = thisClass.slice(0, 2).concat(`${i}`)
                thisLocation.removeChild(bombDiv)
                thisLocation = gridContainer.querySelector(`.${thisClass}`)
