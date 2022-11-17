@@ -68,13 +68,11 @@ footer {
    pointer-events: none;
    position: absolute;
    display: block;
-   bottom: -100%;
    left: 50%;
    margin-left: -1.5px;
    width: 3px;
    height: 100%;
    background: linear-gradient(45deg, transparent, aquamarine 70%, rgb(255, 255, 255));
-   opacity: 0;
    z-index: 9000;
    animation: fireMissile;
    animation-duration: .15s;
@@ -288,8 +286,8 @@ footer {
 }
 
 @keyframes fireMissile {
-   0%{opacity: .5;
-      bottom: 0%;
+   0%{opacity: .7;
+      bottom: 20%;
    }
    100%{
       opacity: 1;
