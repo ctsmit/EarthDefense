@@ -20,8 +20,13 @@ Arrow Buttons
 Good Luck!
 
 # Installation
-https://github.com/ctsmit/EarthDefense.git
+###To fork my repo:
 
+you will see a button in the UPPER RIGHT hand corner that says Fork. 
+
+### To clone my repo:
+
+git clone 
 # Technologies Used
 All Vanilla JS and CSS
 
