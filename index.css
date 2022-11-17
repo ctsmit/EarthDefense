@@ -155,6 +155,13 @@ footer {
    font-size: 2rem;
    color: rgb(127, 255, 212, .15);
 }
+.high-score{
+   position: absolute;
+   right: 3%;
+   top: 1.5%;
+   font-size: 2rem;
+   color: rgb(127, 255, 212, .15);
+}
 @media (pointer: fine) {
    footer {
       opacity: 0;

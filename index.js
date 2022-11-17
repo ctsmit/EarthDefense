@@ -25,6 +25,9 @@ restartButton.classList.add("restart-button")
 restartButton.innerText = "RESTART"
 let roundCounter = document.createElement("span")
 roundCounter.classList.add("round-counter")
+let highScore = document.createElement("span")
+highScore.classList.add("high-score")
+highScore.innerText = 1
 
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
@@ -124,6 +127,10 @@ const game = {
    },
    restart() {
       bombArr = []
+      if (round>highScore.innerText) {
+         highScore.innerText = round
+         gridContainer.appendChild(highScore)
+      }
       round = 1
       playerAlive = true
       bombsRemaining = 0
