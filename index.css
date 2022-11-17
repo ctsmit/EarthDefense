@@ -18,9 +18,9 @@ body {
    align-items: center;
 }
 .grid-container {
-   background-image: url(images/vertSpaceCrop.png);
+   background-image: url(images/newHorzCrop.png);
    background-repeat: no-repeat;
-   background-size: 102% 102%;
+   background-size: 100% 100%;
    background-position: center;
    border: solid 3px rgb(127, 255, 212);
    border-radius: 50px;
@@ -31,7 +31,7 @@ body {
    grid-template-columns: repeat(9, 1fr);
    grid-template-rows: repeat(9, 1fr);
    grid-gap: 0;
-   width: min(72vw, 70rem);
+   width: min(75vw, 75rem);
    height: 100%;
    margin-top: 0.8rem;
    z-index: 2;
@@ -150,6 +150,7 @@ footer {
 .round-counter{
    position: absolute;
    left: 3%;
+   top: 1.5%;
    font-size: 2rem;
    color: rgb(127, 255, 212, .15);
 }
@@ -158,12 +159,7 @@ footer {
       opacity: 0;
    }
 }
-@media (min-width: 810px) {
-   .grid-container {
-      background-image: url(images/horzSpaceCrop.png);
-   }
-}
-@media (max-width: 811px) and (pointer: coarse) {
+@media (max-width: 811px) and (pointer: coarse) and (orientation: portrait) {
    body{
       position: fixed;
       inset: 0;
@@ -171,9 +167,15 @@ footer {
       max-height: 100%;
    }
    .grid-container {
+     background-image: url(images/newVertCrop.png); 
+     background-repeat: no-repeat;
+     background-size: 100% 100%;
+     background-position: center;
      margin-top: 0; 
      width: 100vw;
      border-radius: 30px;
+     border-bottom-left-radius: 0;
+     border-bottom-right-radius: 0;
    }
    footer {
       width: 100vw;
@@ -196,9 +198,12 @@ footer {
       margin-top: 0;
       width: 100vw;
       border-radius: 30px;
+      border-bottom-left-radius: 0;
+      border-bottom-right-radius: 0;
    }
    footer {
       width: 100vw;
+      height: 40%;
       border-bottom-right-radius: 30px;
       border-bottom-left-radius: 30px;
    }
@@ -210,6 +215,7 @@ footer {
    }
    .fire-button {
       background-size: 20vh;
+      
    }
    .right-button,
    .left-button {

@@ -210,7 +210,7 @@ document.onkeydown = function (e) {
       case " ":
          if (playerAlive === false) {
             game.restart()
-         } else if (bombsRemaining === 0 || undefined) {
+         } else if (bombsRemaining === 0 || bombsRemaining === undefined) {
             game.start()
          }
          break
