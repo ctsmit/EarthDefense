@@ -153,18 +153,16 @@ const game = {
 
 const sounds = {
    fireSound() {
-      let fire = new Audio("sounds/fireSound.mp3")
+      const fire =  new Audio("sounds/fireSound.mp3")
       fire.volume = 0.2
-      fire.playbackRate = 1.5
+      fire.playbackRate = 2
       fire.preload
       fire.play()
-      console.log(fire
-      );
    },
    alienSound() {
       let alien = new Audio("sounds/alienMove5.mp3")
       alien.volume = 0.1
-      alien.playbackRate = 1.2
+      alien.playbackRate = 2
       alien.play()
    },
    deadSound() {
