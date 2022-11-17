@@ -156,7 +156,10 @@ const sounds = {
       let fire = new Audio("sounds/fireSound.mp3")
       fire.volume = 0.2
       fire.playbackRate = 1.5
+      fire.preload
       fire.play()
+      console.log(fire
+      );
    },
    alienSound() {
       let alien = new Audio("sounds/alienMove5.mp3")
