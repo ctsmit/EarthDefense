@@ -69,6 +69,7 @@ footer {
    position: absolute;
    display: block;
    left: 50%;
+   opacity: 0;
    margin-left: -1.5px;
    width: 3px;
    height: 100%;

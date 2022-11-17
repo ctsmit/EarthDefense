@@ -199,7 +199,9 @@ class AlienBomber {
       } while (newStart === bombStartLocation)
       bombStartLocation = newStart
 
-      sounds.alienSound()
+      if (window.matchMedia("(pointer: fine)").matches) {
+         sounds.alienSound()
+      }
       this.currentLocation = gridContainer.querySelector(`.s${newStart}1`)
       this.currentClass = `s${newStart}1`
       this.currentLocation.appendChild(bombDiv)
