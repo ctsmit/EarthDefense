@@ -6,9 +6,7 @@ let bombArr = []
 let bombsRemaining
 let intervalId
 
-const squares = document.getElementsByClassName("squares")
 const gridContainer = document.querySelector(".grid-container")
-const bottomRow = document.querySelectorAll(".player-container")
 const missile = document.createElement("span")
 missile.classList.add("missile")
 const player = document.createElement("div")
@@ -27,6 +25,7 @@ restartButton.classList.add("restart-button")
 restartButton.innerText = "RESTART"
 let roundCounter = document.createElement("span")
 roundCounter.classList.add("round-counter")
+
 /////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////
 const playerObject = {
@@ -41,13 +40,14 @@ const playerObject = {
 
       if (direction === 0) {
          playerPosition--
-         gridContainer.querySelector(`.p${playerPosition}`).appendChild(player) //why does this work but a variable set to it doesn't
+         gridContainer.querySelector(`.p${playerPosition}`).appendChild(player)
       } else if (direction === 1) {
          playerPosition++
          gridContainer.querySelector(`.p${playerPosition}`).appendChild(player)
       }
    },
-   shoot() { 
+   shoot() {
+      sounds.fireSound()
       let hit = true
       let columnClass = `row${playerPosition}`
       let currentColumn = document.getElementsByClassName(`${columnClass}`)
@@ -62,7 +62,7 @@ const playerObject = {
             hit = false
             playerObject.shootAnimation(hit)
          }
-      }                                                                                
+      }
    },
    shootAnimation(hit) {
       let columnClass = `.p${playerPosition}`
@@ -74,7 +74,7 @@ const playerObject = {
       if (hit === true) {
          gridContainer.classList.add("animation")
          gridContainer.onanimationend = () => {
-         gridContainer.classList.remove("animation")
+            gridContainer.classList.remove("animation")
          }
       }
    },
@@ -85,12 +85,13 @@ const game = {
       let roundBombs = 10 + round * 2
       let roundMil = round * 50
 
+      sounds.roundStart()
       roundCounter.innerText = round
       gridContainer.appendChild(roundCounter)
       startButton.innerText = `WAVE ${round}`
       setTimeout(() => {
          gridContainer.removeChild(startButton)
-      }, 1500);
+      }, 1500)
 
       game.createBombDiv(roundBombs)
       bombInterval = () => {
@@ -98,6 +99,7 @@ const game = {
          new AlienBomber(bombArr[0], roundMil)
          bombArr.shift()
          game.checkWin()
+         game.isDead()
       }
       const intervalKey = setInterval(bombInterval, 1000 - roundMil)
       intervalId = intervalKey
@@ -112,10 +114,13 @@ const game = {
       bombsRemaining = roundBombs
    },
    isDead() {
-      gridContainer.appendChild(restartButton)
-      playerAlive = false
-      restartButton.style.animation = "flicker 5s 1s"
-      gridContainer.classList.add("dead-animation")
+      if (playerAlive === false) {
+         clearInterval(intervalId)
+         sounds.deadSound()
+         gridContainer.appendChild(restartButton)
+         restartButton.style.animation = "flicker 5s 1s forwards"
+         gridContainer.classList.add("dead-animation")
+      }
    },
    restart() {
       bombArr = []
@@ -123,7 +128,7 @@ const game = {
       playerAlive = true
       bombsRemaining = 0
       playerPosition = 5
-      
+
       for (let square of gridContainer.children) {
          if (square.classList.contains("squares")) {
             square.textContent = ""
@@ -137,11 +142,44 @@ const game = {
    },
    checkWin() {
       if (playerAlive === true && bombsRemaining === 0) {
+         sounds.roundWin()
          clearInterval(intervalId)
          round++
          gridContainer.appendChild(startButton)
          startButton.innerText = "NEXT ROUND"
       }
+   },
+}
+
+const sounds = {
+   fireSound() {
+      let fire = new Audio("sounds/fireSound.wav")
+      fire.volume = 0.2
+      fire.playbackRate = 1.5
+      fire.play()
+   },
+   alienSound() {
+      let alien = new Audio("sounds/alienMove5.wav")
+      alien.volume = 0.1
+      alien.playbackRate = 1.2
+      alien.play()
+   },
+   deadSound() {
+      let dead = new Audio("sounds/gameOver.wav")
+      dead.volume = 0.2
+      dead.play()
+   },
+   roundWin() {
+      let win = new Audio("sounds/roundWin2.wav")
+      win.volume = 0.2
+      win.playbackRate = 0.5
+      win.play()
+   },
+   roundStart() {
+      let start = new Audio("sounds/roundStart.wav")
+      start.volume = 0.2
+      start.playbackRate = 2
+      start.play()
    },
 }
 //////////////////////////////////////////////////////////////////////////////////////////////
@@ -161,6 +199,7 @@ class AlienBomber {
       } while (newStart === bombStartLocation)
       bombStartLocation = newStart
 
+      sounds.alienSound()
       this.currentLocation = gridContainer.querySelector(`.s${newStart}1`)
       this.currentClass = `s${newStart}1`
       this.currentLocation.appendChild(bombDiv)
@@ -172,12 +211,13 @@ class AlienBomber {
          ;(function () {
             setTimeout(function () {
                if (!thisLocation.lastChild || bombDiv.parentElement === null) return
+               sounds.alienSound()
                thisClass = thisClass.slice(0, 2).concat(`${i}`)
                thisLocation.removeChild(bombDiv)
                thisLocation = gridContainer.querySelector(`.${thisClass}`)
                thisLocation.appendChild(bombDiv)
                if (i === 9) {
-                  game.isDead()
+                  playerAlive = false
                   return
                }
             }, i * (1000 - roundMil))
@@ -215,7 +255,7 @@ document.onkeydown = function (e) {
          }
          break
    }
-   }
+}
 
 fireButton.onclick = () => {
    playerObject.shoot()
