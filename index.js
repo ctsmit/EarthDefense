@@ -4,7 +4,6 @@ let round = 1
 let playerAlive = true
 let bombArr = []
 let bombsRemaining
-let intervalId
 
 const gridContainer = document.querySelector(".grid-container")
 const missile = document.createElement("span")
@@ -84,6 +83,7 @@ const playerObject = {
 }
 
 const game = {
+   intervalId: undefined,
    start() {
       let roundBombs = 10 + round * 2
       let roundMil = round * 50
@@ -98,11 +98,11 @@ const game = {
 
       game.createBombDiv(roundBombs)
       bombInterval = () => {
-         if (playerAlive === false) clearInterval(intervalKey)
+         if (playerAlive === false) clearInterval(intervalId)
          new AlienBomber(bombArr[0], roundMil)
          bombArr.shift()
          game.checkWin()
-         game.isDead()
+         game.checkDead()
       }
       const intervalKey = setInterval(bombInterval, 1000 - roundMil)
       intervalId = intervalKey
@@ -116,18 +116,26 @@ const game = {
       }
       bombsRemaining = roundBombs
    },
-   isDead() {
+   checkDead() {
       if (playerAlive === false) {
-         clearInterval(intervalId)
          sounds.deadSound()
          gridContainer.appendChild(restartButton)
          restartButton.style.animation = "flicker 5s 1s forwards"
          gridContainer.classList.add("dead-animation")
       }
    },
+   checkWin() {
+      if (playerAlive === true && bombsRemaining === 0) {
+         sounds.roundWin()
+         clearInterval(intervalId)
+         round++
+         gridContainer.appendChild(startButton)
+         startButton.innerText = "NEXT ROUND"
+      }
+   },
    restart() {
       bombArr = []
-      if (round>highScore.innerText) {
+      if (round > highScore.innerText) {
          highScore.innerText = round
          gridContainer.appendChild(highScore)
       }
@@ -147,23 +155,13 @@ const game = {
       startButton.innerText = "START"
       playerStart.appendChild(player)
    },
-   checkWin() {
-      if (playerAlive === true && bombsRemaining === 0) {
-         sounds.roundWin()
-         clearInterval(intervalId)
-         round++
-         gridContainer.appendChild(startButton)
-         startButton.innerText = "NEXT ROUND"
-      }
-   },
 }
 
 const sounds = {
    fireSound() {
-      const fire =  new Audio("sounds/fireSound.mp3")
+      const fire = new Audio("sounds/fireSound.mp3")
       fire.volume = 0.2
       fire.playbackRate = 2
-      fire.preload
       fire.play()
    },
    alienSound() {
@@ -206,40 +204,45 @@ class AlienBomber {
          newStart = Math.floor(Math.random() * 9 + 1)
       } while (newStart === bombStartLocation)
       bombStartLocation = newStart
+      this.currentLocation = gridContainer.querySelector(`.s${newStart}1`)
+      this.currentClass = `s${newStart}1`
+      this.currentLocation.appendChild(bombDiv)
 
       if (window.matchMedia("(pointer: fine)").matches) {
          sounds.alienSound()
       }
-      this.currentLocation = gridContainer.querySelector(`.s${newStart}1`)
-      this.currentClass = `s${newStart}1`
-      this.currentLocation.appendChild(bombDiv)
    }
    move(bombDiv, roundMil) {
       let thisClass = this.currentClass
       let thisLocation = this.currentLocation
-      for (let i = 1; i <= 9; i++) {
-         ;(function () {
-            setTimeout(function () {
-               if (!thisLocation.lastChild || bombDiv.parentElement === null) return
-               if (window.matchMedia("(pointer: fine)").matches) {
-                  sounds.alienSound()
-               }
-               thisClass = thisClass.slice(0, 2).concat(`${i}`)
-               thisLocation.removeChild(bombDiv)
-               thisLocation = gridContainer.querySelector(`.${thisClass}`)
-               thisLocation.appendChild(bombDiv)
-               if (i === 9) {
-                  playerAlive = false
-                  return
-               }
-            }, i * (1000 - roundMil))
-         })(i)
+
+      const moveFunction = function (i) {
+         setTimeout(function () {
+            i++
+            if (!thisLocation.lastChild || bombDiv.parentElement === null) {
+               return
+            }
+            thisClass = thisClass.slice(0, 2).concat(`${i}`)
+            thisLocation.removeChild(bombDiv)
+            thisLocation = gridContainer.querySelector(`.${thisClass}`)
+            thisLocation.appendChild(bombDiv)
+            if (window.matchMedia("(pointer: fine)").matches) {
+               sounds.alienSound()
+            }
+            if (i === 9) {
+               playerAlive = false
+               return
+            }
+            moveFunction(i)
+         }, 1000 - roundMil)
       }
+      moveFunction(1)
    }
 }
+
 ////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
-document.onkeydown = function (e) {
+document.onkeydown = (e) => {
    switch (e.key) {
       case "ArrowLeft":
          playerObject.move(0)
