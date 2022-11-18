@@ -208,9 +208,9 @@ class AlienBomber {
       this.currentClass = `s${newStart}1`
       this.currentLocation.appendChild(bombDiv)
 
-      if (window.matchMedia("(pointer: fine)").matches) {
+      // if (window.matchMedia("(pointer: fine)").matches) {
          sounds.alienSound()
-      }
+      // }
    }
    move(bombDiv, roundMil) {
       let thisClass = this.currentClass
