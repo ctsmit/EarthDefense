@@ -128,7 +128,7 @@ footer {
    background-repeat: no-repeat;
    background-size: 70%;
 
-   background-position: center;
+   background-position: center center;
    padding: 10px;
    height: 80%;
    width: 15rem;

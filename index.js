@@ -208,24 +208,23 @@ class AlienBomber {
       this.currentClass = `s${newStart}1`
       this.currentLocation.appendChild(bombDiv)
 
-      // if (window.matchMedia("(pointer: fine)").matches) {
+      if (window.matchMedia("(pointer: fine)").matches) {
          sounds.alienSound()
-      // }
+      }
    }
    move(bombDiv, roundMil) {
-      let thisClass = this.currentClass
-      let thisLocation = this.currentLocation
+      let self = this
 
       const moveFunction = function (i) {
          setTimeout(function () {
             i++
-            if (!thisLocation.lastChild || bombDiv.parentElement === null) {
+            if (!self.currentLocation.lastChild || bombDiv.parentElement === null) {
                return
             }
-            thisClass = thisClass.slice(0, 2).concat(`${i}`)
-            thisLocation.removeChild(bombDiv)
-            thisLocation = gridContainer.querySelector(`.${thisClass}`)
-            thisLocation.appendChild(bombDiv)
+            self.currentClass = self.currentClass.slice(0, 2).concat(`${i}`)
+            self.currentLocation.removeChild(bombDiv)
+            self.currentLocation = gridContainer.querySelector(`.${self.currentClass}`)
+            self.currentLocation.appendChild(bombDiv)
             if (window.matchMedia("(pointer: fine)").matches) {
                sounds.alienSound()
             }
