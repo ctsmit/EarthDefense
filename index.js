@@ -49,7 +49,9 @@ const playerObject = {
       }
    },
    shoot() {
-      sounds.fireSound()
+      if (window.matchMedia("(pointer: fine)").matches) {
+         sounds.fireSound()
+      }
       let hit = true
       let columnClass = `row${playerPosition}`
       let currentColumn = document.getElementsByClassName(`${columnClass}`)
